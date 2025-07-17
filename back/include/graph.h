@@ -39,12 +39,22 @@ private:
     unsigned long vertex_quantity;
 
 public:
+    //graph.cpp part
     Graph(bool is_orgraph = false, bool is_weight = false);
     int add_vertex(std::string, long weight);
     int add_edge(std::string first, std::string second, long weight);
     int delete_edge(std::string first, std::string second);
     int delete_edge(std::string first_str, std::string second_str);
     int delete_vertex(std::string name);
+
+
+
+
+
+
+    //graph_graphics.cpp part
+
+    int show();
 };
 
 

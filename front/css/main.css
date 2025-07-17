@@ -1,0 +1,62 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: rgb(21, 19, 26);
+}
+
+.menu {
+    position: relative;
+    margin: 5px;
+    display: inline-block;
+}
+
+.menu button {
+    background-color: #2abc27;
+    color: rgb(255, 255, 255);
+}
+
+.menu button:hover {
+    background-color: aquamarine;
+    transition: 0.5s;
+}
+
+#menu1 {
+  font-size: 24px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+
+#submenu1 {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* отступ */
+    background-color: rgba(29, 29, 29, 0);
+    border: none;
+    top: 50px;
+    left: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+#submenu1 button {
+  display: block;
+  width: auto;
+  font-size: 18px;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+.hidden {
+    display: none !important;
+}

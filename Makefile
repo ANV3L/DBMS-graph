@@ -1,4 +1,4 @@
-CORE_FILES = src/terminal.cpp src/main.cpp
+CORE_FILES = back/src/terminal.cpp back/src/main.cpp
 FLAGS = -Wall
 
 FORCE:
