@@ -17,6 +17,7 @@ enum{
     Not_Founded = -1,
     Cant_Open_File = -3,
     Empty_graph = -4,
+    Format_Error = -5,
     Alloc_Issue = -11,
     Dot_File_Issue = -12,
 
@@ -62,6 +63,7 @@ public:
     int delete_vertex(std::string name);
     int free();
     int save(std::string file_name);
+    int load(std::string file_name);
 
 
 

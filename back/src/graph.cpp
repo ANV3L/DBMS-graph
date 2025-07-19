@@ -145,8 +145,7 @@ int Graph::save(std::string file_name){
 
     if(!file.is_open())return Cant_Open_File;
 
-    file << this->orgraph << this->weight << "\n";
-    file << "╬\n";
+    file << this->orgraph << " " << this->weight << "\n";
 
     for(auto i : this->vertices) {
         file << i.first << "╬" << i.second->weight << "\n";
@@ -181,5 +180,46 @@ int Graph::free(){
     }
     vertices.clear();
     vertex_quantity = 0;
+    return 0;
+}
+
+int Graph::load(std::string file_name){
+    std::ifstream file("back/data/" + file_name);
+    if(!file.is_open())return Cant_Open_File;
+
+    free();
+
+    int temp1, temp2;
+    file >> temp1 >> temp2;
+    this->orgraph = (bool)temp1;
+    this->weight = (bool)temp2;
+
+    std::string line;
+    std::getline(file, line);
+
+    bool logic = false;
+
+    size_t index;
+    while(std::getline(file, line)){
+        if(line == "╬"){
+            logic = true; continue;
+        }
+
+
+        if(logic){
+            index = line.find('╬');
+            size_t second_index = line.find('╬', index + 1);
+            std::string from = line.substr(0, index);
+            std::string to = line.substr(index + 1, second_index - index - 1);
+            long weight = std::stol(line.substr(second_index + 1));
+            this->add_edge(from, to, weight);
+        } else {
+            index = line.find('╬');
+            if(index == std::string::npos)return Format_Error;
+            std::string vertex_name = line.substr(0, index);
+            long vertex_weight = std::stol(line.substr(index + 1));
+            this->add_vertex(vertex_name, vertex_weight);
+        }
+    }
     return 0;
 }
