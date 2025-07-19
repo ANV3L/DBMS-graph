@@ -15,7 +15,11 @@ private:
     std::map<std::string, int (Terminal::*)()> commands;
     int exit();
     int add_vertex();
-
+    int delete_vertex();
+    int make_orgraph();
+    int make_weight();
+    int make_unorgraph();
+    int make_unweight();
 
 
 

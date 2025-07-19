@@ -14,8 +14,11 @@
 //Errors
 
 enum{
+    Not_Founded = -1,
     Alloc_Issue = -11,
     Dot_File_Issue = -12,
+
+    ERROR = -777, // Этой ошибки быть не должно
 };
 
 class Vertex; 

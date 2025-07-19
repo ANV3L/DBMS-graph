@@ -27,7 +27,7 @@ int Graph::add_edge(std::string first_str, std::string second_str, long weight =
     Vertex* first = this->vertices[first_str];
     Vertex* second = this->vertices[second_str];
     if (!first or !second){
-        return -1; // нет таких вершин
+        return Not_Founded; // нет таких вершин
     }
 
     Edge* temp = new Edge();
@@ -46,14 +46,14 @@ int Graph::add_edge(std::string first_str, std::string second_str, long weight =
 
 int Graph::delete_edge(std::string first_str, std::string second_str){
     auto first = this->vertices.find(first_str);
-    if (first == this->vertices.end())return -1;
+    if (first == this->vertices.end())return Not_Founded;
     auto edge = first->second->edges.find(second_str); 
-    if(edge == first->second->edges.end())return -1; // not founded
+    if(edge == first->second->edges.end())return Not_Founded; // not founded
     Edge* temp = edge->second;
     this->vertices[first_str]->edges.erase(second_str);
     if(!this->orgraph){
         auto second = this->vertices.find(second_str);
-        if(second == this->vertices.end())return -777; // Ошибка, которой не должно возникать при корректной работе кода
+        if(second == this->vertices.end())return ERROR; // Ошибка, которой не должно возникать при корректной работе кода
         this->vertices[second_str]->edges.erase(first_str);
     }
     delete temp;
@@ -63,7 +63,7 @@ int Graph::delete_edge(std::string first_str, std::string second_str){
 int Graph::delete_vertex(std::string name){
     auto vertex = this->vertices.find(name);
     if(vertex == this->vertices.end()){
-        return -1; // not founded
+        return Not_Founded;
     }
     auto& edges = vertex->second->edges;
     for(auto i = edges.begin(); i != edges.end(); i){

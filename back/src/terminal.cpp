@@ -5,6 +5,12 @@ Terminal::Terminal(){
     commands["show"] = &Terminal::show;
     commands["addv"] = &Terminal::add_vertex;
     commands["add vertex"] = &Terminal::add_vertex;
+    commands["delv"] = &Terminal::delete_vertex;
+    commands["delete vertex"] = &Terminal::delete_vertex;
+    commands["make orgraph"] = &Terminal::make_orgraph;
+    commands["make weight"] = &Terminal::make_weight;
+    commands["make unorgraph"] = &Terminal::make_unorgraph;
+    commands["make unweight"] = &Terminal::make_unweight;
 };
 
 void Terminal::run(){
@@ -64,4 +70,29 @@ int Terminal::add_vertex(){
     }
 
     return this->graph.add_vertex(name, weight);
+}
+
+int Terminal::delete_vertex(){
+    std::string name;
+    std::cout << "Name of vertex << ";
+    std::getline(std::cin, name);
+
+    return this->graph.delete_vertex(name);
+}
+
+
+int Terminal::make_orgraph(){
+    this->graph.orgraph = true; return 0;
+}
+
+int Terminal::make_weight(){
+    this->graph.weight = true; return 0;
+}
+
+int Terminal::make_unorgraph(){
+    this->graph.orgraph = false; return 0;
+}
+
+int Terminal::make_unweight(){
+    this->graph.weight = false; return 0;
 }
