@@ -7,6 +7,16 @@
 #include <algorithm>
 #include <unordered_map>
 #include <map>
+#include <fstream>
+#include <set>
+#include <utility>
+
+//Errors
+
+enum{
+    Alloc_Issue = -11,
+    Dot_File_Issue = -12,
+};
 
 class Vertex; 
 
@@ -39,11 +49,10 @@ private:
     unsigned long vertex_quantity;
 
 public:
-    //graph.cpp part
     Graph(bool is_orgraph = false, bool is_weight = false);
+    ~Graph();
     int add_vertex(std::string, long weight);
     int add_edge(std::string first, std::string second, long weight);
-    int delete_edge(std::string first, std::string second);
     int delete_edge(std::string first_str, std::string second_str);
     int delete_vertex(std::string name);
 
@@ -52,9 +61,11 @@ public:
 
 
 
-    //graph_graphics.cpp part
 
     int show();
+
+
+    friend class Terminal;
 };
 
 

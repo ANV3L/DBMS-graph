@@ -76,3 +76,63 @@ int Graph::delete_vertex(std::string name){
     return 0;
 }
 
+int Graph::show(){
+    std::string name = "back/data/graph.dot";
+
+    std::ofstream file(name);
+    if(!file)return Alloc_Issue;
+    
+    file << (this->orgraph ? "digraph" : "graph") << " G {\n";
+    file << "  node [shape=circle, style=filled, fillcolor=lightblue];\n";
+
+    for(auto i : this->vertices){
+        file << " \"" << i.first << "\"";
+        file << "[label=\"" << i.first;
+        if(this->weight)file << "\\n" << i.second->weight;
+        file << "\"];\n";
+    }
+
+    std::set<std::pair<std::string, std::string>> memory;
+
+    for(auto vertex : this->vertices){
+        for(auto edge : vertex.second->edges){
+            if(!this->orgraph)
+                if(memory.count({vertex.first, edge.first}))continue;
+
+            file << " \"" << vertex.first << "\" " 
+            << (this->orgraph ? "->" : "--") << " "
+            << "\"" << edge.first << "\"";
+
+            if(this->weight){
+                file << " [label=\"" << edge.second->weight << "\"]";
+            }
+
+            file << ";\n";
+
+            memory.insert({edge.first, vertex.first});
+        }
+    }
+
+
+    file << "}\n";
+    file.close();
+
+
+    int res = system("dot -Tpng back/data/graph.dot -o back/data/graph.png");
+    if(res != 0){
+        return Dot_File_Issue;
+    }
+
+    #ifdef _WIN32
+        system("start back/data/graph.png");
+    #elif __APPLE__
+        system("open back/data/graph.png");
+    #else
+        system("xdg-open back/data/graph.png");
+    #endif
+
+    std::remove("back/data/graph.dot");
+    std::remove("back/data/graph.png");
+
+    return 0;
+}
