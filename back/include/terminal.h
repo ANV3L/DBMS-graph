@@ -22,6 +22,7 @@ private:
     int make_unweight();
     int free();
     int save();
+    int load();
 
 
 

@@ -13,6 +13,7 @@ Terminal::Terminal(){
     commands["make unweight"] = &Terminal::make_unweight;
     commands["free"] = &Terminal::free;
     commands["save"] = &Terminal::save;
+    commands["load"] = &Terminal::load;
 };
 
 void Terminal::run(){
@@ -115,4 +116,12 @@ int Terminal::save(){
     std::getline(std::cin, name);
 
     return this->graph.save(name);
+}
+
+int Terminal::load(){
+    std::string name;
+    std::cout << "Name of file << ";
+    std::getline(std::cin, name);
+
+    return this->graph.load(name);
 }

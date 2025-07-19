@@ -10,7 +10,7 @@
 #include <fstream>
 #include <set>
 #include <utility>
-
+#include <iostream> //for test: delete after it
 //Errors
 
 enum{

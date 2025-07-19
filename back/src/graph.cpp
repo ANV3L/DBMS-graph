@@ -148,10 +148,10 @@ int Graph::save(std::string file_name){
     file << this->orgraph << " " << this->weight << "\n";
 
     for(auto i : this->vertices) {
-        file << i.first << "╬" << i.second->weight << "\n";
+        file << i.first << "\t" << i.second->weight << "\n";
     }
 
-    file << "╬\n";
+    file << "\t\n";
 
     std::set<std::pair<std::string, std::string>> memory;
 
@@ -160,7 +160,7 @@ int Graph::save(std::string file_name){
             if(!this->orgraph)
                 if(memory.count({vertex.first, edge.first}))continue;
             memory.insert({edge.first, vertex.first});
-            file << vertex.first << "╬" << edge.first << "╬" << edge.second->weight << "\n";
+            file << vertex.first << "\t" << edge.first << "\t" << edge.second->weight << "\n";
         }
 
     }
@@ -201,20 +201,20 @@ int Graph::load(std::string file_name){
 
     size_t index;
     while(std::getline(file, line)){
-        if(line == "╬"){
+        if(line == "\t"){
             logic = true; continue;
         }
 
 
         if(logic){
-            index = line.find('╬');
-            size_t second_index = line.find('╬', index + 1);
+            index = line.find("\t");
+            size_t second_index = line.find("\t", index + 1);
             std::string from = line.substr(0, index);
             std::string to = line.substr(index + 1, second_index - index - 1);
             long weight = std::stol(line.substr(second_index + 1));
             this->add_edge(from, to, weight);
         } else {
-            index = line.find('╬');
+            index = line.find("\t");
             if(index == std::string::npos)return Format_Error;
             std::string vertex_name = line.substr(0, index);
             long vertex_weight = std::stol(line.substr(index + 1));
