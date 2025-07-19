@@ -15,6 +15,8 @@
 
 enum{
     Not_Founded = -1,
+    Cant_Open_File = -3,
+    Empty_graph = -4,
     Alloc_Issue = -11,
     Dot_File_Issue = -12,
 
@@ -58,6 +60,8 @@ public:
     int add_edge(std::string first, std::string second, long weight);
     int delete_edge(std::string first_str, std::string second_str);
     int delete_vertex(std::string name);
+    int free();
+    int save(std::string file_name);
 
 
 

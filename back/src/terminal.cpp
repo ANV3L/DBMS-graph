@@ -11,15 +11,20 @@ Terminal::Terminal(){
     commands["make weight"] = &Terminal::make_weight;
     commands["make unorgraph"] = &Terminal::make_unorgraph;
     commands["make unweight"] = &Terminal::make_unweight;
+    commands["free"] = &Terminal::free;
+    commands["save"] = &Terminal::save;
 };
 
 void Terminal::run(){
     int res = 0;
+    std::string memory = "";
     while(1){
         res = 0;
         std::string comand;
         std::cout << "> ";  // На данном участке принимаются команды
         std::getline(std::cin, comand);
+        if(comand == ""){comand = memory;std::cout<<"> "<<memory<<std::endl;}
+        memory = comand;
 
         if(std::cin.eof()){
             std::cout << std::endl; return;
@@ -37,6 +42,9 @@ void Terminal::run(){
                 return;
             case -2:
                 std::cout << "Incorrect comand" << std::endl;
+                break;
+            case -4:
+                std::cout << "Empty Graph" << std::endl;
                 break;
             case -11:
                 std::cout << "Alloc Issues" << std::endl;
@@ -95,4 +103,16 @@ int Terminal::make_unorgraph(){
 
 int Terminal::make_unweight(){
     this->graph.weight = false; return 0;
+}
+
+int Terminal::free(){
+    return this->graph.free();
+}
+
+int Terminal::save(){
+    std::string name;
+    std::cout << "Name of file << ";
+    std::getline(std::cin, name);
+
+    return this->graph.save(name);
 }

@@ -20,7 +20,8 @@ private:
     int make_weight();
     int make_unorgraph();
     int make_unweight();
-
+    int free();
+    int save();
 
 
 

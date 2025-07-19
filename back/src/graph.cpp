@@ -77,6 +77,7 @@ int Graph::delete_vertex(std::string name){
 }
 
 int Graph::show(){
+    if(!this->vertex_quantity)return Empty_graph;
     std::string name = "back/data/graph.dot";
 
     std::ofstream file(name);
@@ -134,5 +135,51 @@ int Graph::show(){
     std::remove("back/data/graph.dot");
     std::remove("back/data/graph.png");
 
+    return 0;
+}
+
+
+int Graph::save(std::string file_name){
+    std::ofstream file("back/data/" + file_name);
+
+
+    if(!file.is_open())return Cant_Open_File;
+
+    file << this->orgraph << this->weight << "\n";
+    file << "╬\n";
+
+    for(auto i : this->vertices) {
+        file << i.first << "╬" << i.second->weight << "\n";
+    }
+
+    file << "╬\n";
+
+    std::set<std::pair<std::string, std::string>> memory;
+
+    for(auto vertex : this->vertices){
+        for(auto edge : vertex.second->edges){
+            if(!this->orgraph)
+                if(memory.count({vertex.first, edge.first}))continue;
+            memory.insert({edge.first, vertex.first});
+            file << vertex.first << "╬" << edge.first << "╬" << edge.second->weight << "\n";
+        }
+
+    }
+
+    file.close();
+    return 0;
+}
+
+int Graph::free(){
+    this->orgraph = false;
+    this->weight = false;
+
+    for(auto vertex : vertices){
+        for(auto edge : vertex.second->edges)delete edge.second;
+        vertex.second->edges.clear();
+        delete vertex.second;
+    }
+    vertices.clear();
+    vertex_quantity = 0;
     return 0;
 }
